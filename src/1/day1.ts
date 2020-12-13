@@ -18,4 +18,8 @@ const sums = (numbers: arrayOfNumbers, sumNumber: number): arrayOfNumbers => {
     return result;
 };
 
-module.exports = {sums};
+const multiplies = (numbers: arrayOfNumbers): number => {
+  return numbers[0] * numbers[1];
+};
+
+module.exports = {sums, multiplies};
