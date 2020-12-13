@@ -22,4 +22,8 @@ const multiplies = (numbers: arrayOfNumbers): number => {
   return numbers[0] * numbers[1];
 };
 
-module.exports = {sums, multiplies};
+const productForASum = (numbers: arrayOfNumbers, sumNumber: number): number => {
+    return multiplies(sums(numbers, sumNumber));
+};
+
+module.exports = {sums, multiplies, productForASum};

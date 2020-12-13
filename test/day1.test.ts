@@ -1,4 +1,4 @@
-const {sums, multiplies} = require('../src/1/day1');
+const {sums, multiplies, productForASum} = require('../src/1/day1');
 
 const myNumbers = [1721, 79, 366, 299, 675, 1456];
 
@@ -13,4 +13,8 @@ describe('day 1', () => {
         const multipliedTwoNumbers = multiplies([1721, 299]);
         expect(multipliedTwoNumbers).toEqual(514579);
     });
+
+    it('returns the product of two numbers which sum to a given number', () => {
+        expect(productForASum(myNumbers, 2020)).toEqual(514579);
+    })
 });
