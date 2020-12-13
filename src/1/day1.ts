@@ -1,8 +1,21 @@
+type arrayOfNumbers = Array<number>;
 
-type arrayOfNumbers = number[];
-const sums: arrayOfNumbers  = (numbers: arrayOfNumbers, number) => {
-
-
+const addedMatchesSumemdNumber = (firstNumber: number, secondNumber: number, sumNumber: number): boolean =>  {
+    const summed = firstNumber + secondNumber;
+    return summed === sumNumber;
 };
 
-module.exports = { sums };
+const sums = (numbers: arrayOfNumbers, sumNumber: number): arrayOfNumbers => {
+    let result = [];
+    for (const checkingNumber of numbers) {
+        let numbersMinusCheckingNumber = numbers.filter(num =>  num !== checkingNumber );
+        const addedNumber = numbersMinusCheckingNumber.filter(num => addedMatchesSumemdNumber(num, checkingNumber, sumNumber));
+        if (addedNumber[0]) {
+            result.push(addedNumber[0]);
+        }
+
+    }
+    return result;
+};
+
+module.exports = {sums};
