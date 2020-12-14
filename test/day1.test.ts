@@ -10,6 +10,10 @@ describe('day 1', () => {
         expect(twoNumbers).toContain(299);
     });
 
+    it('works correctly with 2 numbers', () => {
+       expect(sums([1010, 1010], 2020)).toEqual([1010, 1010]);
+    });
+
     it('multiplies two numbers', () => {
         const multipliedTwoNumbers = multiplies([1721, 299]);
         expect(multipliedTwoNumbers).toEqual(514579);

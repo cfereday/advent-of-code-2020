@@ -7,6 +7,14 @@ const addedMatchesSummedNumber = (firstNumber: number, secondNumber: number, sum
 
 const sums = (numbers: arrayOfNumbers, sumNumber: number): arrayOfNumbers => {
     let result = [];
+
+    if (numbers.length === 2) {
+        const addedNumber = addedMatchesSummedNumber(numbers[0], numbers[1], sumNumber);
+        if (addedNumber) {
+            return numbers;
+        }
+    }
+
     for (const checkingNumber of numbers) {
         let numbersMinusCheckingNumber = numbers.filter(num =>  num !== checkingNumber );
         const addedNumber = numbersMinusCheckingNumber.filter(num => addedMatchesSummedNumber(num, checkingNumber, sumNumber));
