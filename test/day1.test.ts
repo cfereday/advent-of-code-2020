@@ -3,7 +3,7 @@ const {testInput} = require('./test-data');
 
 const myNumbers = [1721, 79, 366, 299, 675, 1456];
 
-describe('day 1', () => {
+describe('day 1: part 1', () => {
     it('finds two numbers that sum to a given number', () => {
         const twoNumbers = sums(myNumbers, 2020);
         expect(twoNumbers).toContain(1721);
@@ -26,4 +26,11 @@ describe('day 1', () => {
     it('gets the answer for day1 from test input', () => {
         expect(productForASum(testInput, 2020)).toEqual(567171);
     });
+});
+
+describe('day 1: part 2', () => {
+   it('returns the product of three numbers which sum to a given number', () => {
+       const threeNumbers = [979, 366, 366];
+       expect(productForASum(threeNumbers, 2020)).toEqual(241861950);
+   });
 });
