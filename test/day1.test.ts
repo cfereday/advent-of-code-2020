@@ -1,3 +1,4 @@
+const {sumsAttemptTwo, sumOfHeadAndGivenTail, currentTailSum, productOfGivenNumbers} = require('../src/1/day1Part2');
 const {sums, multiplies, productForASum} = require('../src/1/day1');
 const {testInput} = require('./test-data');
 
@@ -29,8 +30,37 @@ describe('day 1: part 1', () => {
 });
 
 describe('day 1: part 2', () => {
-   it('returns the product of three numbers which sum to a given number', () => {
-       const threeNumbers = [979, 366, 366];
-       expect(productForASum(threeNumbers, 2020)).toEqual(241861950);
-   });
+    it('adds an array of numbers together', () => {
+        expect(currentTailSum([1,2,3])).toEqual(6)
+    });
+
+    it('sums the head and the given tail', () => {
+        const head = 979;
+        const tail = [366, 366];
+        expect(sumOfHeadAndGivenTail(head, tail, 3)).toEqual({
+            givenNumbers: [979,366, 366],
+            summed: 1711
+        });
+
+        expect(sumOfHeadAndGivenTail(1, [12, 45, 86, 98], 3)).toEqual({
+            givenNumbers: [1,12, 45],
+            summed: 58
+        });
+
+    });
+
+    it('returns the product of an array of numbers where each element is multiplied against the other ', () => {
+        const myNums = [979, 366, 675];
+        expect(productOfGivenNumbers(myNums)).toEqual(241861950);
+    });
+
+    it('returns the product of three numbers which sum to a given number', () => {
+        const myNums = [979, 366, 675];
+        expect(sumsAttemptTwo(myNums, 2020, 3).product).toEqual(241861950);
+    });
+
+    it('gets the answer for day1 part 2 from test input', () => {
+        expect(sumsAttemptTwo(testInput, 2020, 3).finalNumbers).toEqual([123,89,98]);
+    });
+
 });
