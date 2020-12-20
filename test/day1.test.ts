@@ -34,6 +34,10 @@ describe('day 1: part 2', () => {
         expect(currentTailSum([1,2,3])).toEqual(6)
     });
 
+    it('if the array is empty returns 0', () => {
+        expect(currentTailSum([])).toEqual(0)
+    });
+
     it('sums the head and the given tail', () => {
         const head = 979;
         const tail = [366, 366];
@@ -59,8 +63,13 @@ describe('day 1: part 2', () => {
         expect(sumsAttemptTwo(myNums, 2020, 3).product).toEqual(241861950);
     });
 
-    it('gets the answer for day1 part 2 from test input', () => {
-        expect(sumsAttemptTwo(testInput, 2020, 3).finalNumbers).toEqual([123,89,98]);
+    it('returns the product of a range of numbers which sum to a given number', () => {
+        const myNums = [979, 366, 675, 89, 90, 15, 60];
+        expect(sumsAttemptTwo(myNums, 2020, 3).product).toEqual(241861950);
+    });
+
+    it.skip('gets the answer for day1 part 2 from test input', () => {
+        expect(sumsAttemptTwo(testInput, 2020, 3).product).toEqual(567171);
     });
 
 });

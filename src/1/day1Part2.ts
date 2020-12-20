@@ -10,16 +10,16 @@ type productAndGivenNumbers = {
 
 const currentTailSum = (tailed: number[]): number => {
     if (!tailed) {
-        return
+        return 0;
     }
 
-    if (tailed.length < 0) {
-        return
+    if (tailed.length < 1) {
+        return 0;
     }
-    console.log('tailed********', tailed);
+
     return tailed.reduce((accumulator, currentValue) => {
         return accumulator + currentValue
-    });
+    }, 0);
 };
 
 const sumOfHeadAndGivenTail = (head: number, tail: number[], howMuchOfTail: number): sumOfHeadsAndTails => {
@@ -54,10 +54,16 @@ const productOfGivenNumbers = (numbers: number[]): number => {
 
 const sumsAttemptTwo = (numbers: number[], sumNumber: number, howManyNumbers: number): productAndGivenNumbers => {
     if (!numbers) {
-        return;
+        return {
+            finalNumbers: numbers,
+            product: numbers[0]
+        }
     }
-    if (numbers.length < 0 || numbers.length === 0) {
-        return;
+    if (numbers.length < 1 || numbers.length === 1) {
+        return {
+            finalNumbers: numbers,
+            product: numbers[0]
+        }
     }
 
     const [head, ...tail] = numbers;
