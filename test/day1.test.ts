@@ -68,7 +68,7 @@ describe('day 1: part 2', () => {
         expect(sumsAttemptTwo(myNums, 2020, 3).product).toEqual(241861950);
     });
 
-    it.skip('gets the answer for day1 part 2 from test input', () => {
+    it.only('gets the answer for day1 part 2 from test input', () => {
         expect(sumsAttemptTwo(testInput, 2020, 3).product).toEqual(567171);
     });
 
