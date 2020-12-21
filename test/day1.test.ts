@@ -1,4 +1,5 @@
 const {sumsAttemptTwo, sumOfHeadAndGivenTail, currentTailSum, productOfGivenNumbers} = require('../src/1/day1Part2');
+const {getNumbersAndProduct} = require('../src/1/day1Part2Attempt2');
 const {sums, multiplies, productForASum} = require('../src/1/day1');
 const {testInput} = require('./test-data');
 
@@ -51,6 +52,8 @@ describe('day 1: part 2', () => {
             summed: 58
         });
 
+        expect(sumOfHeadAndGivenTail( 1531, testInput, 2020, 3).givenNumbers).toEqual(567171);
+
     });
 
     it('returns the product of an array of numbers where each element is multiplied against the other ', () => {
@@ -68,8 +71,13 @@ describe('day 1: part 2', () => {
         expect(sumsAttemptTwo(myNums, 2020, 3).product).toEqual(241861950);
     });
 
-    it.only('gets the answer for day1 part 2 from test input', () => {
+    it('gets the answer for day1 part 2 from test input', () => {
         expect(sumsAttemptTwo(testInput, 2020, 3).product).toEqual(567171);
+    });
+
+    it.only('gets the answer for day1 part 2 from test input attempt 3', () => {
+        const result = getNumbersAndProduct(testInput, 2020, 3);
+        expect(result.product).toEqual(567171);
     });
 
 });

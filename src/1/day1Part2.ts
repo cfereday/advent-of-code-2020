@@ -14,6 +14,7 @@ const currentTailSum = (tailed: number[]): number => {
     }, 0);
 };
 
+
 const sumOfHeadAndGivenTail = (head: number, tail: number[], howMuchOfTail: number): sumOfHeadsAndTails => {
     const headAndTailed = [head, ...tail];
     if (headAndTailed.length === howMuchOfTail) {
