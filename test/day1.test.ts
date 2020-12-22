@@ -75,6 +75,11 @@ describe('day 1: part 2', () => {
         expect(sumsAttemptTwo(testInput, 2020, 3).product).toEqual(567171);
     });
 
+    it.skip('gets the answer for day1 part 2 from test input attempt 3', () => {
+        const result = getAllAdditions(testInput, 2020);
+        expect(result.product).toEqual(567171);
+    });
+
     it.only('gets the answer for day1 part 2 from test input attempt 3', () => {
         const result = getAllAdditions(testInput, 2020);
         expect(result.product).toEqual(567171);
