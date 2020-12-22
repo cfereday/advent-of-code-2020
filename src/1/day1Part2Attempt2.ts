@@ -3,8 +3,8 @@ type elementsAndProduct = {
     product: number
 }
 
-const getAllAdditions = (uniqueNumbers: number[], sumNumberToCheck: number): elementsAndProduct => {
-    if (uniqueNumbers.length < 2) {
+const getAllAdditions = (uniqueNumbers: number[], sumNumberToCheck: number, howFar: number): elementsAndProduct => {
+    if (uniqueNumbers.length < howFar) {
         return {
             elements: [],
             product: 0
@@ -13,16 +13,20 @@ const getAllAdditions = (uniqueNumbers: number[], sumNumberToCheck: number): ele
     const [head, ...tail] = uniqueNumbers;
 
     for (const current of tail ) {
-        const added = head + current;
-        if (added === sumNumberToCheck) {
-            return {
-                elements: [head, current],
-                product: head * current
+        const [ignoredHead, ...newTail] = tail;
+        for (const newCurrent of newTail) {
+            const added = head + current + newCurrent;
+            if (added === sumNumberToCheck) {
+                return {
+                    elements: [head, current, newCurrent],
+                    product: head * current * newCurrent
+                }
             }
+
         }
     }
 
-    return getAllAdditions(tail, sumNumberToCheck);
+    return getAllAdditions(tail, sumNumberToCheck, howFar);
 };
 
 module.exports = {getAllAdditions};
