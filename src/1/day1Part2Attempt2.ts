@@ -3,7 +3,7 @@ type elementsAndProduct = {
     product: number
 }
 
-const getAllAdditions = (uniqueNumbers: number[], sumNumberToCheck: number, howFar: number): elementsAndProduct => {
+const getElementAndProductForThree = (uniqueNumbers: number[], sumNumberToCheck: number, howFar: number): elementsAndProduct => {
     if (uniqueNumbers.length < howFar) {
         return {
             elements: [],
@@ -26,7 +26,7 @@ const getAllAdditions = (uniqueNumbers: number[], sumNumberToCheck: number, howF
         }
     }
 
-    return getAllAdditions(tail, sumNumberToCheck, howFar);
+    return getElementAndProductForThree(tail, sumNumberToCheck, howFar);
 };
 
-module.exports = {getAllAdditions};
+module.exports = {getElementAndProductForThree};
