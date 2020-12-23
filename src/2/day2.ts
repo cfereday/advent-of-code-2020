@@ -27,11 +27,8 @@ const isValidPassword = ({ character, min, max, password} : policy): boolean => 
     return found.length >= min && found.length <= max
 };
 
-
-
 const getValidPasswords = (passwords: string): string[] => {
     return parseMany(passwords).filter(isValidPassword).map(valid => valid.password);
 };
-
 
 module.exports = {getValidPasswords, parse, parseMany, isValidPassword};
