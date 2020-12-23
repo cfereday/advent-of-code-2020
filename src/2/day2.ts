@@ -1,23 +1,37 @@
-const getValidPasswords = (passwords: {}): string[] => {
-    let validPasswords = [];
-    for (const [key, value] of Object.entries(passwords)) {
-        const splitKey: string[] = key.split(' ');
-        const passwordCharacter: string = splitKey[1];
-        const numberOfCharacters: string[] = splitKey[0].split('-');
+type policy = {
+    character: string,
+    min: number,
+    max: number,
+    password: string
+}
 
-        if (value.includes(passwordCharacter)) {
-            // remove any other chars & check the length
-            const passwordRegex: RegExp = new RegExp(`[^${passwordCharacter}]`, 'g');
-            const countOfPasswordChars: number = value.replace(passwordRegex, "").length;
-
-            if ((countOfPasswordChars >= parseInt(numberOfCharacters[0])) && (countOfPasswordChars <= parseInt(numberOfCharacters[1]))) {
-                validPasswords.push(value);
-            }
-        }
+const parse = (rawPassword: string): policy => {
+    const [rawPolicy, password] = rawPassword.split(': ');
+    const [minAndMax, character] = rawPolicy.split(' ');
+    const [min, max] = minAndMax.split('-');
+    return {
+        character,
+        min: parseInt(min),
+        max: parseInt(max),
+        password
     }
+};
 
-    return validPasswords;
+const parseMany = (rawPasswords: string): policy[] => {
+    return rawPasswords.split(/\r?\n/).map(raw => raw.trim()).map(parse);
+};
+
+const isValidPassword = ({ character, min, max, password} : policy): boolean => {
+    const passwordRegex: RegExp = new RegExp(character, 'g');
+    const found = password.match(passwordRegex) || [];
+    return found.length >= min && found.length <= max
 };
 
 
-module.exports = {getValidPasswords};
+
+const getValidPasswords = (passwords: string): string[] => {
+    return parseMany(passwords).filter(isValidPassword).map(valid => valid.password);
+};
+
+
+module.exports = {getValidPasswords, parse, parseMany, isValidPassword};
