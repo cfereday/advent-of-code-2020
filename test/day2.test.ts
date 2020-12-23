@@ -30,8 +30,8 @@ describe('Day 2', () => {
         expect(getValidPasswords(testInput)).toEqual(['abcde', 'ccccccccc']);
     });
 
-    it.skip('gets the answer for Day 2', () => {
+    it('gets the answer for Day 2', () => {
         const result = getValidPasswords(testData);
-        expect(result.length).toEqual(297)
+        expect(result.length).toEqual(396)
     });
 });
