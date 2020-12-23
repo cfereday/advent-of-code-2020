@@ -1,4 +1,4 @@
-const {getValidPasswords, parse, parseMany, isValidPassword} = require('../src/2/day2');
+const {getValidPasswords, parse, parseMany, isValidPassword, isValidPassword2, getValidPasswords2} = require('../src/2/day2');
 const {testData} = require('./test-data-2');
 
 describe('Day 2', () => {
@@ -34,4 +34,21 @@ describe('Day 2', () => {
         const result = getValidPasswords(testData);
         expect(result.length).toEqual(396)
     });
+});
+
+describe('Day 2, part 2', () => {
+   it('checks if a password is valid according to new rules', () => {
+       const valid = {character: 'a', min: 1, max: 3, password: 'abcde'};
+       const invalid = {character: 'b', min: 1, max: 3, password: 'cdefg'};
+       const anotherInvalid = {character: 'c', min: 2, max: 9, password: 'ccccccccc'};
+
+       expect(isValidPassword2(valid)).toEqual(true);
+       expect(isValidPassword2(invalid)).toEqual(false);
+       expect(isValidPassword2(anotherInvalid)).toEqual(false);
+   });
+
+   it('gets the answer for Day 2 part 2', () => {
+       const result = getValidPasswords2(testData);
+       expect(result.length).toEqual(428)
+   });
 });

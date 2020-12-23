@@ -27,8 +27,21 @@ const isValidPassword = ({ character, min, max, password} : policy): boolean => 
     return found.length >= min && found.length <= max
 };
 
+const isValidPassword2 = ({ character, min, max, password}: policy): boolean => {
+    const minCharIndex = password.charAt(min - 1);
+    const maxCharIndex = password.charAt(max - 1);
+    if (minCharIndex === character && maxCharIndex === character) {
+        return false;
+    }
+    return minCharIndex === character || maxCharIndex === character;
+};
+
 const getValidPasswords = (passwords: string): string[] => {
     return parseMany(passwords).filter(isValidPassword).map(valid => valid.password);
 };
 
-module.exports = {getValidPasswords, parse, parseMany, isValidPassword};
+const getValidPasswords2 = (passwords: string): string[] => {
+    return parseMany(passwords).filter(isValidPassword2).map(valid => valid.password);
+};
+
+module.exports = {getValidPasswords, parse, parseMany, isValidPassword, isValidPassword2, getValidPasswords2};
