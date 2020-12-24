@@ -35,11 +35,16 @@ const isValidPassword2 = ({ character, min, max, password}: policy): boolean => 
 };
 
 const getValidPasswords = (passwords: string): string[] => {
-    return parseMany(passwords).filter(isValidPassword).map(valid => valid.password);
+    return validPasswords(isValidPassword)(passwords)
 };
 
 const getValidPasswords2 = (passwords: string): string[] => {
-    return parseMany(passwords).filter(isValidPassword2).map(valid => valid.password);
+    return validPasswords(isValidPassword2)(passwords)
+};
+
+// todo: type definition of a fn looks like a fn
+const validPasswords = (predicate: (policy) => boolean): (string) => string[] => {
+    return (passwords) => parseMany(passwords).filter(predicate).map(valid => valid.password)
 };
 
 module.exports = {getValidPasswords, parse, parseMany, isValidPassword, isValidPassword2, getValidPasswords2};
