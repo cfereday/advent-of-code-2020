@@ -28,12 +28,10 @@ const isValidPassword = ({ character, min, max, password} : policy): boolean => 
 };
 
 const isValidPassword2 = ({ character, min, max, password}: policy): boolean => {
-    const minCharIndex = password.charAt(min - 1);
-    const maxCharIndex = password.charAt(max - 1);
-    if (minCharIndex === character && maxCharIndex === character) {
-        return false;
-    }
-    return minCharIndex === character || maxCharIndex === character;
+    const minChar = password.charAt(min - 1);
+    const maxChar = password.charAt(max - 1);
+
+    return (minChar === character && maxChar !== character) || (minChar !== character && maxChar === character);
 };
 
 const getValidPasswords = (passwords: string): string[] => {
