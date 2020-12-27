@@ -45,12 +45,21 @@ const keysToParseToNumber = (obj: optionalPasswordStrings): optionalPassword => 
 };
 
 const parseToObject = (password: string): optionalPassword => {
-    const splitPassword = password.split(' ');
-    const secondSplitPassword = splitPassword.map(p => p.split(':'));
+    const trimmedPassword = password.trim();
+    const splitPassword = trimmedPassword.split(' ');
+    const secondSplitPassword = splitPassword.map(p => {
+        const trimmed = p.trim();
+        return trimmed.split(':')
+    });
     //:todo i created a tsconfig with ESNext to resolve this error but perhaps some improvement to make as still have to ignore the tslint error for now: https://github.com/microsoft/TypeScript/issues/30933
     // @ts-ignore
     const obj: optionalPasswordStrings = Object.fromEntries(secondSplitPassword);
     return keysToParseToNumber(obj);
 };
 
-module.exports = {parseToObject, keysToParseToNumber};
+const extractPasswords = (passwords: string): optionalPassword[] => {
+    const split = passwords.split(/\n\n/g);
+    return split.map(p => parseToObject(p));
+};
+
+module.exports = {parseToObject, keysToParseToNumber, extractPasswords};

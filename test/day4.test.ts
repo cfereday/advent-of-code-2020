@@ -1,18 +1,4 @@
-const {parseToObject, keysToParseToNumber} = require('../src/4/day4');
-
-/*const input = "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\n' +
-'byr:1937 iyr:2017 cid:147 hgt:183cm\n' +
-'\n' +
-'iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884\n' +
-'hcl:#cfa07d byr:1929\n' +
-'\n' +
-'hcl:#ae17e1 iyr:2013\n' +
-'eyr:2024\n' +
-'ecl:brn pid:760753108 byr:1931\n' +
-'hgt:179cm\n' +
-'\n' +
-'hcl:#cfa07d eyr:2025 pid:166559648\n' +
-'iyr:2011 ecl:brn hgt:59in";*/
+const {parseToObject, keysToParseToNumber, extractPasswords} = require('../src/4/day4');
 
 describe('Day 4', () => {
     describe('keysToParseToNumber()', () => {
@@ -64,18 +50,78 @@ describe('Day 4', () => {
         });
     });
 
+    describe('parseToObject', () => {
+        it('extracts a password string into a password object', () => {
+            const onePassword = 'ecl:gry pid:860033327 eyr:2020 hcl:#fffffd byr:1937 iyr:2017 cid:147 hgt:183cm';
+            expect(parseToObject(onePassword)).toEqual({
+                ecl: 'gry',
+                pid: 860033327,
+                eyr: 2020,
+                hcl: '#fffffd',
+                byr: 1937,
+                iyr: 2017,
+                cid: 147,
+                hgt: '183cm'
+            })
+        });
 
-    it('extracts a password string into a password object', () => {
-        const onePassword = 'ecl:gry pid:860033327 eyr:2020 hcl:#fffffd byr:1937 iyr:2017 cid:147 hgt:183cm';
-        expect(parseToObject(onePassword)).toEqual({
-            ecl: 'gry',
-            pid: 860033327,
-            eyr: 2020,
-            hcl: '#fffffd',
-            byr: 1937,
-            iyr: 2017,
-            cid: 147,
-            hgt: '183cm'
-        })
+        it('extracts a number of password strings into a password object', () => {
+            const input = `ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+            byr:1937 iyr:2017 cid:147 hgt:183cm
+
+            iyr:2013 ecl:amb cid:350 eyr:2023 pid:28048884
+            hcl:#cfa07d byr:1929
+
+            hcl:#ae17e1 iyr:2013e
+            eyr:2024
+            ecl:brn pid:760753108 byr:1931
+            hgt:179cm
+
+            hcl:#cfa07d eyr:2025 pid:166559648
+            iyr:2011 ecl:brn hgt:59in`;
+
+            expect(extractPasswords(input)).toEqual([
+                {
+                    ecl: 'gry',
+                    pid: 860033327,
+                    eyr: 2020,
+                    hcl: '#fffffd',
+                    byr: 1937,
+                    iyr: 2017,
+                    cid: 147,
+                    hgt: '183cm'
+                },
+                {
+                    iyr: 2013,
+                    ecl: 'amb',
+                    cid: 350,
+                    eyr: 2023,
+                    pid: 28048884,
+                    hcl: '#cfa07d',
+                    byr: 1929,
+                },
+                {
+                    hcl: '#ae17e1',
+                    iyr: 2013,
+                    eyr: 2024,
+                    ecl: 'brn',
+                    pid: 760753108,
+                    byr: 1931,
+                    hgt: '179cm',
+                },
+                {
+                    hcl: '#cfa07d',
+                    eyr: 2025,
+                    pid: 166559648,
+                    iyr: 2011,
+                    ecl: 'brn',
+                    hgt: '59in',
+                }
+            ])
+        });
+    })
+
+    describe('checks validity', () => {
+
     });
 });
