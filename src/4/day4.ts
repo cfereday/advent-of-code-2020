@@ -46,7 +46,7 @@ const ValidPasswordEnum = [
 
 const parseToNumber = (partOfPassword: string): number => parseInt(partOfPassword);
 
-const keysToParseToNumber = (obj: optionalPasswordStrings): optionalPassword => {
+const keysToParseToNumber = (obj: optionalPassword | ValidPassword): optionalPassword | ValidPassword => {
     for (const [key, value] of Object.entries(obj)) {
         if (key.match(/(pid|byr|cid|eyr|iyr)\b/))
             obj[key] = parseToNumber(value);
@@ -56,7 +56,7 @@ const keysToParseToNumber = (obj: optionalPasswordStrings): optionalPassword => 
     return obj
 };
 
-const parseToObject = (password: string): optionalPassword => {
+const parseToObject = (password: string): optionalPassword | ValidPassword => {
     const trimmedPassword = password.trim();
     const splitPassword = trimmedPassword.split(' ');
     const secondSplitPassword = splitPassword.map(p => {
@@ -65,11 +65,12 @@ const parseToObject = (password: string): optionalPassword => {
     });
     //:todo i created a tsconfig with ESNext to resolve this error but perhaps some improvement to make as still have to ignore the tslint error for now: https://github.com/microsoft/TypeScript/issues/30933
     // @ts-ignore
-    const obj: optionalPasswordStrings = Object.fromEntries(secondSplitPassword);
+    const obj: optionalPasswordStrings | ValidPassword = Object.fromEntries(secondSplitPassword);
+    // @ts-ignore
     return keysToParseToNumber(obj);
 };
 
-const extractPasswords = (passwords: string): optionalPassword[] => {
+const extractPasswords = (passwords: string): optionalPassword[] | ValidPassword[] => {
     const split = passwords.split(/\n\n/g);
     return split.map(p => parseToObject(p));
 };
@@ -80,4 +81,10 @@ const isValid = (password: optionalPassword | ValidPassword): boolean => {
    return result.length === ValidPasswordEnum.length
 };
 
-module.exports = {parseToObject, keysToParseToNumber, extractPasswords, isValid};
+const getAllValidPasswordsPart1 = (passwords: string): ValidPassword[] => {
+    const extracted = extractPasswords(passwords);
+    // @ts-ignore
+    return extracted.filter(p => isValid(p))
+};
+
+module.exports = {parseToObject, keysToParseToNumber, extractPasswords, isValid, getAllValidPasswordsPart1};
