@@ -21,7 +21,8 @@ type optionalPasswordStrings = {
     hgt?: string
 }
 
-type validPassword = {
+// type guards https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards could I just check on the type?
+interface ValidPassword {
     ecl: string,
     pid: number,
     eyr: number,
@@ -31,6 +32,17 @@ type validPassword = {
     cid: number,
     hgt: string
 }
+
+// :todo how could I achieve this as an enum?
+const ValidPasswordEnum = [
+    'ecl',
+    'pid',
+    'eyr',
+    'hcl',
+    'byr',
+    'iyr',
+    'hgt'
+];
 
 const parseToNumber = (partOfPassword: string): number => parseInt(partOfPassword);
 
@@ -62,4 +74,10 @@ const extractPasswords = (passwords: string): optionalPassword[] => {
     return split.map(p => parseToObject(p));
 };
 
-module.exports = {parseToObject, keysToParseToNumber, extractPasswords};
+const isValid = (password: optionalPassword | ValidPassword): boolean => {
+    const allKeys = Object.keys(password);
+   const result = allKeys.filter(k => ValidPasswordEnum.includes(k));
+   return result.length === ValidPasswordEnum.length
+};
+
+module.exports = {parseToObject, keysToParseToNumber, extractPasswords, isValid};
