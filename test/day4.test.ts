@@ -1,5 +1,5 @@
 const {parseToObject, keysToParseToNumber, extractPasswords, isValid, getAllValidPasswordsPart1} = require('../src/4/day4');
-
+const {testData} = require('./test-data-4');
 describe('Day 4', () => {
     describe('keysToParseToNumber()', () => {
         it('given a string value of a key returns a number if it exists', () => {
@@ -211,6 +211,10 @@ describe('Day 4', () => {
             iyr:2011 ecl:brn hgt:59in`;
 
             expect(getAllValidPasswordsPart1(input).length).toEqual(2)
+        });
+
+        it('gets the answers for day 4: p1', () => {
+           expect(getAllValidPasswordsPart1(testData).length).toEqual(31)
         });
     });
 
