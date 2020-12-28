@@ -20,7 +20,6 @@ const extractPasswords = (passwords: string): string[] => {
 const isValid = (password: string): boolean => {
     const matchedKeys = password.match(/byr|iyr|eyr|hgt|hcl|ecl|pid/g);
     return matchedKeys.length === mustHavePasswordKeys.length;
-
 };
 
 const getAllValidPasswordsPart1 = (passwords: string): string[] => {
