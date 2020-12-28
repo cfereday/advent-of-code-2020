@@ -27,9 +27,34 @@ const iyrIsValid = (iyrTuple: string): boolean => {
     return isWithinInterval(new Date(splitYear), {start: new Date('2010'), end: new Date('2020')})
 };
 
-const eyrIsValid = (iyrTuple: string): boolean => {
+const eyrIsValid = (eyrTuple: string): boolean => {
 // eyr (Expiration Year) - four digits; at least 2020 and at most 2030
-    const splitYear = (iyrTuple.split(':'))[1];
+    const splitYear = (eyrTuple.split(':'))[1];
     return isWithinInterval(new Date(splitYear), {start: new Date('2020'), end: new Date('2030')})
 };
-module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid};
+
+const hgtIsValid = (hgtTuple: string): boolean => {
+    /*
+    hgt (Height) - a number followed by either cm or in:
+    If cm, the number must be at least 150 and at most 193.
+    If in, the number must be at least 59 and at most 76.
+    */
+    const splitHgt = (hgtTuple.split(':'))[1];
+
+    if (!splitHgt.includes('cm') || splitHgt.includes('in')) {
+        return false;
+    };
+
+    if (splitHgt.includes('cm')) {
+        const num = parseInt(splitHgt.split('cm')[0]);
+        return (num >= 150 && num <=193)
+    }
+
+    if (splitHgt.includes('in')) {
+        const num = parseInt(splitHgt.split('in')[0]);
+        return (num >= 59 && num <=76)
+    }
+};
+
+
+module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid};
