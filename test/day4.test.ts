@@ -1,5 +1,5 @@
 const {extractPasswords, isValid, getAllValidPasswordsPart1} = require('../src/4/day4');
-const {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid} = require('../src/4/day4part2');
+const {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid} = require('../src/4/day4part2');
 const {testData} = require('./test-data-4');
 describe('Day 4', () => {
     describe('part 1', () => {
@@ -134,6 +134,15 @@ describe('Day 4', () => {
                 });
             });
 
+            describe('hcl', () => {
+                it('returns true for a valid hcl tuple', () => {
+                    expect(hclIsValid('hcl:#123abc')).toEqual(true);
+                });
+                it('returns invalid for an invalid eyr tuples', () => {
+                    expect(hclIsValid('hcl:#123abz')).toEqual(false);
+                    expect(hclIsValid('hcl:123abc')).toEqual(false);
+                });
+            });
         });
     });
 

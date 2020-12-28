@@ -41,7 +41,7 @@ const hgtIsValid = (hgtTuple: string): boolean => {
     */
     const splitHgt = (hgtTuple.split(':'))[1];
 
-    if (!splitHgt.includes('cm') || splitHgt.includes('in')) {
+    if (!splitHgt.includes('cm') && !splitHgt.includes('in')) {
         return false;
     };
 
@@ -56,5 +56,13 @@ const hgtIsValid = (hgtTuple: string): boolean => {
     }
 };
 
+const hclIsValid = (hclTuple: string): boolean => {
+// hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
+    const splitHcl = (hclTuple.split(':'))[1];
+    if (!splitHcl.includes('#')) {
+        return false;
+    }
+    return !!splitHcl.match(/^#[a-f0-9]{6}$/);
+};
 
-module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid};
+module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid};
