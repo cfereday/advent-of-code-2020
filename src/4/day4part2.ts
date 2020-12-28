@@ -76,7 +76,6 @@ const pidIsValid = (pid: string): boolean => {
 };
 
 const allElementsValid = (passport: string[]): boolean => {
-    // go though and match on the tuple
     let result = [];
     for (const field of passport) {
         const [k, v] = field.split(':');
@@ -102,6 +101,11 @@ const allElementsValid = (passport: string[]): boolean => {
             case 'byr':
                 result.push(byrIsValid(v));
                 break;
+            case 'cid':
+                result.push(true);
+                break;
+            default:
+                throw new Error(`unrecognised field ${field}`)
         }
     }
     return result.every(r => r);
