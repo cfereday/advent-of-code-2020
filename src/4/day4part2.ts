@@ -21,4 +21,11 @@ const byrIsValid = (byrTuple: string): boolean => {
 };
 
 
-module.exports = {splitPasswords, byrIsValid};
+const iyrIsValid = (iyrTuple: string): boolean => {
+// four digits; at least 2010 and at most 2020.
+    const splitYear = (iyrTuple.split(':'))[1];
+    return isWithinInterval(new Date(splitYear), { start: new Date('2010'), end: new Date('2020') })
+};
+
+
+module.exports = {splitPasswords, byrIsValid, iyrIsValid};

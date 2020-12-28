@@ -1,5 +1,5 @@
 const {extractPasswords, isValid, getAllValidPasswordsPart1} = require('../src/4/day4');
-const {splitPasswords, byrIsValid} = require('../src/4/day4part2');
+const {splitPasswords, byrIsValid, iyrIsValid} = require('../src/4/day4part2');
 const {testData} = require('./test-data-4');
 describe('Day 4', () => {
     describe('part 1', () => {
@@ -104,6 +104,16 @@ describe('Day 4', () => {
                     expect(byrIsValid('byr:2003')).toEqual(false);
                 });
             });
+
+            describe('iyr', () => {
+                it('returns true for a valid iyr tuple', () => {
+                    expect(iyrIsValid('iyr:2010')).toEqual(true);
+                });
+                it('returns invalid for an invalid iyr tuples', () => {
+                    expect(iyrIsValid('iyr:2022')).toEqual(false);
+                });
+            })
+
         });
     });
 
