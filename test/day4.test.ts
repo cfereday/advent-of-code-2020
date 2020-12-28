@@ -1,5 +1,5 @@
 const {extractPasswords, isValid, getAllValidPasswordsPart1} = require('../src/4/day4');
-const {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid, pidIsValid} = require('../src/4/day4part2');
+const {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid, pidIsValid, allElementsValid} = require('../src/4/day4part2');
 const {testData} = require('./test-data-4');
 describe('Day 4', () => {
     describe('part 1', () => {
@@ -160,6 +160,25 @@ describe('Day 4', () => {
 
                 it('returns invalid for an invalid pid tuples', () => {
                     expect(pidIsValid('pid:0123456789')).toEqual(false);
+                });
+            });
+
+            describe('isValid', () => {
+                it('returns true if a password is valid against all checks', () => {
+                    const valid1 = [ 'pid:087499704', 'hgt:74in', 'ecl:grn', 'iyr:2012', 'eyr:2030', 'byr:1980', 'hcl:#623a2f'];
+                    const valid2 = [ 'eyr:2029', 'ecl:blu', 'cid:129', 'byr:1989', 'iyr:2014', 'pid:896056539', 'hcl:#a97842', 'hgt:165cm'];
+
+                    expect(allElementsValid(valid1)).toEqual(true);
+                    expect(allElementsValid(valid2)).toEqual(true);
+                });
+
+                it('returns false if a password is invalid against all checks', () => {
+                    const invalid1 = [ 'eyr:1972', 'cid:100', 'hcl:#18171d', 'ecl:amb', 'hgt:170', 'pid:186cm', 'iyr:2018', 'byr:1926'];
+                    const invalid2 = [ 'iyr:2019', 'hcl:#602927', 'eyr:1967', 'hgt:170cm', 'ecl:grn', 'pid:012533040', 'byr:1946'];
+
+
+                    expect(allElementsValid(invalid1)).toEqual(false);
+                    expect(allElementsValid(invalid2)).toEqual(false);
                 });
             });
 

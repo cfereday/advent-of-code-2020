@@ -12,13 +12,11 @@ const splitPasswords = (passwords: string[]): string[][] => {
     return passwords.map(p => p.split(' '));
 };
 
-
 const byrIsValid = (byrTuple: string): boolean => {
     //at least 1920 and at most 2002.
     const splitYear = (byrTuple.split(':'))[1];
     return isWithinInterval(new Date(splitYear), {start: new Date('1920'), end: new Date('2002')})
 };
-
 
 const iyrIsValid = (iyrTuple: string): boolean => {
 // four digits; at least 2010 and at most 2020.
@@ -84,4 +82,43 @@ const pidIsValid = (pidTuple: string): boolean => {
     return !! splitPid.match(/^[0-9]{9}$/);
 };
 
-module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid, pidIsValid};
+const allElementsValid = (password: string[]): boolean => {
+    // go though and match on the tuple
+    let result = [];
+        for (const p of password) {
+            if (p.includes('pid')) {
+                result.push(pidIsValid(p))
+            }
+
+            if (p.includes('ecl')) {
+                result.push(eclIsValid(p))
+            }
+
+            if (p.includes('hcl')) {
+                result.push(hclIsValid(p))
+            }
+
+            if (p.includes('hgt')) {
+                result.push(hgtIsValid(p))
+            }
+
+            if (p.includes('eyr')) {
+                result.push(eyrIsValid(p))
+            }
+
+            if (p.includes('eyr')) {
+                result.push(eyrIsValid(p))
+            }
+
+            if (p.includes('iyr')) {
+                result.push(iyrIsValid(p));
+            }
+
+            if (p.includes('byr')) {
+                result.push(byrIsValid(p));
+            }
+        }
+   return result.every(r => r === true);
+};
+
+module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid, pidIsValid, allElementsValid};
