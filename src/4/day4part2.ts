@@ -123,14 +123,12 @@ const allElementsValid = (password: string[]): string => {
    }
 
    return '';
-
 };
 
-const getAllValidPasswordsPart2 = (passwords: string): string[] => {
+const getAllValidPasswordsPart2 = (passwords: string): string[][] => {
     const extracted = extractPasswords2(passwords);
     const split = splitPasswords(extracted);
-    // @ts-ignore
-    return split.filter(p => allElementsValid(p) !== '');
+    return split.filter(p =>  allElementsValid(p) !== '');
 };
 
 module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid, pidIsValid, allElementsValid, getAllValidPasswordsPart2};

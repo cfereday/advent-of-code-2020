@@ -220,7 +220,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719`;
             });
 
             it('gets the answers for day 4: p2', () => {
-                expect(getAllValidPasswordsPart2(testData).length).toEqual(25);
+                expect(getAllValidPasswordsPart2(testData).length).toEqual(198);
             });
         });
     });
