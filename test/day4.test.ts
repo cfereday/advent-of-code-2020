@@ -1,5 +1,5 @@
 const {extractPasswords, isValid, getAllValidPasswordsPart1} = require('../src/4/day4');
-const {splitPasswords} = require('../src/4/day4part2');
+const {splitPasswords, byrIsValid} = require('../src/4/day4part2');
 const {testData} = require('./test-data-4');
 describe('Day 4', () => {
     describe('part 1', () => {
@@ -76,21 +76,34 @@ describe('Day 4', () => {
     });
 
     describe('part 2', () => {
-        it('splits up password keys and values into tuples', () => {
+        describe('splitPasswords', () => {
+            it('splits up password keys and values into tuples', () => {
 
-            const testInput = [
-                'ecl:gry pid:860033327 eyr:2020 hcl:#fffffd byr:1937 iyr:2017 cid:147 hgt:183cm',
-                'iyr:2013 ecl:amb cid:350 eyr:2023 pid:28048884 hcl:#cfa07d byr:1929',
-                'hcl:#ae17e1 iyr:2013 eyr:2024 ecl:brn pid:760753108 byr:1931 hgt:179cm',
-                'hcl:#cfa07d eyr:2025 pid:166559648 iyr:2011 ecl:brn hgt:59in'
-            ];
+                const testInput = [
+                    'ecl:gry pid:860033327 eyr:2020 hcl:#fffffd byr:1937 iyr:2017 cid:147 hgt:183cm',
+                    'iyr:2013 ecl:amb cid:350 eyr:2023 pid:28048884 hcl:#cfa07d byr:1929',
+                    'hcl:#ae17e1 iyr:2013 eyr:2024 ecl:brn pid:760753108 byr:1931 hgt:179cm',
+                    'hcl:#cfa07d eyr:2025 pid:166559648 iyr:2011 ecl:brn hgt:59in'
+                ];
 
-            expect(splitPasswords(testInput)).toEqual([
-                ['ecl:gry', 'pid:860033327', 'eyr:2020', 'hcl:#fffffd', 'byr:1937', 'iyr:2017', 'cid:147', 'hgt:183cm'],
-                ['iyr:2013', 'ecl:amb', 'cid:350', 'eyr:2023', 'pid:28048884', 'hcl:#cfa07d', 'byr:1929'],
-                ['hcl:#ae17e1', 'iyr:2013', 'eyr:2024', 'ecl:brn', 'pid:760753108', 'byr:1931', 'hgt:179cm'],
-                ['hcl:#cfa07d', 'eyr:2025', 'pid:166559648', 'iyr:2011', 'ecl:brn', 'hgt:59in'],
-            ]);
+                expect(splitPasswords(testInput)).toEqual([
+                    ['ecl:gry', 'pid:860033327', 'eyr:2020', 'hcl:#fffffd', 'byr:1937', 'iyr:2017', 'cid:147', 'hgt:183cm'],
+                    ['iyr:2013', 'ecl:amb', 'cid:350', 'eyr:2023', 'pid:28048884', 'hcl:#cfa07d', 'byr:1929'],
+                    ['hcl:#ae17e1', 'iyr:2013', 'eyr:2024', 'ecl:brn', 'pid:760753108', 'byr:1931', 'hgt:179cm'],
+                    ['hcl:#cfa07d', 'eyr:2025', 'pid:166559648', 'iyr:2011', 'ecl:brn', 'hgt:59in'],
+                ]);
+            });
+        });
+
+        describe('validation of fields', () => {
+            describe('byr', () => {
+                it('returns true for a valid byr tuple', () => {
+                    expect(byrIsValid('byr:2002')).toEqual(true);
+                });
+                it('returns invalid for an invalid byr tuples', () => {
+                    expect(byrIsValid('byr:2003')).toEqual(false);
+                });
+            });
         });
     });
 
