@@ -3,7 +3,6 @@ import {isWithinInterval} from 'date-fns';
 const extractPasswords2 = (passwords: string): string[] => {
     const split = passwords.split(/\n\n|\r\r/g);
     return split.map(p => {
-        // https://futurestud.io/tutorials/remove-all-whitespace-from-a-string-in-javascript
         const stripped = p.replace(/\s+/g, " ");
         return stripped.trim()
     });
@@ -79,4 +78,10 @@ const eclIsValid = (eclTuple: string): boolean => {
     }
 };
 
-module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid};
+const pidIsValid = (pidTuple: string): boolean => {
+    // pid (Passport ID) - a nine-digit number, including leading zeroes.
+    const splitPid = (pidTuple.split(':'))[1];
+    return !! splitPid.match(/^[0-9]{9}$/);
+};
+
+module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid, pidIsValid};

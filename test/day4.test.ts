@@ -1,5 +1,5 @@
 const {extractPasswords, isValid, getAllValidPasswordsPart1} = require('../src/4/day4');
-const {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid} = require('../src/4/day4part2');
+const {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid, pidIsValid} = require('../src/4/day4part2');
 const {testData} = require('./test-data-4');
 describe('Day 4', () => {
     describe('part 1', () => {
@@ -152,6 +152,17 @@ describe('Day 4', () => {
                     expect(eclIsValid('ecl:wat')).toEqual(false);
                 });
             });
+
+            describe('pid', () => {
+                it('returns true for a valid pid tuple', () => {
+                    expect(pidIsValid('pid:000000001')).toEqual(true);
+                });
+
+                it('returns invalid for an invalid pid tuples', () => {
+                    expect(pidIsValid('pid:0123456789')).toEqual(false);
+                });
+            });
+
         });
     });
 
