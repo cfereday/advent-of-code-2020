@@ -82,7 +82,7 @@ const pidIsValid = (pidTuple: string): boolean => {
     return !! splitPid.match(/^[0-9]{9}$/);
 };
 
-const allElementsValid = (password: string[]): boolean => {
+const allElementsValid = (password: string[]): string => {
     // go though and match on the tuple
     let result = [];
         for (const p of password) {
@@ -118,7 +118,19 @@ const allElementsValid = (password: string[]): boolean => {
                 result.push(byrIsValid(p));
             }
         }
-   return result.every(r => r === true);
+   if (result.every(r => r === true)) {
+        return password.join(' ');
+   }
+
+   return '';
+
 };
 
-module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid, pidIsValid, allElementsValid};
+const getAllValidPasswordsPart2 = (passwords: string): string[] => {
+    const extracted = extractPasswords2(passwords);
+    const split = splitPasswords(extracted);
+    // @ts-ignore
+    return split.filter(p => allElementsValid(p) !== '');
+};
+
+module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid, pidIsValid, allElementsValid, getAllValidPasswordsPart2};

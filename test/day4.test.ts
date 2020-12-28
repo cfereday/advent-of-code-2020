@@ -1,5 +1,5 @@
 const {extractPasswords, isValid, getAllValidPasswordsPart1} = require('../src/4/day4');
-const {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid, pidIsValid, allElementsValid} = require('../src/4/day4part2');
+const {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid, pidIsValid, allElementsValid, getAllValidPasswordsPart2} = require('../src/4/day4part2');
 const {testData} = require('./test-data-4');
 describe('Day 4', () => {
     describe('part 1', () => {
@@ -164,24 +164,64 @@ describe('Day 4', () => {
             });
 
             describe('isValid', () => {
-                it('returns true if a password is valid against all checks', () => {
-                    const valid1 = [ 'pid:087499704', 'hgt:74in', 'ecl:grn', 'iyr:2012', 'eyr:2030', 'byr:1980', 'hcl:#623a2f'];
-                    const valid2 = [ 'eyr:2029', 'ecl:blu', 'cid:129', 'byr:1989', 'iyr:2014', 'pid:896056539', 'hcl:#a97842', 'hgt:165cm'];
+                it('returns string of whole password if a password is valid against all checks', () => {
+                    const valid1 = ['pid:087499704', 'hgt:74in', 'ecl:grn', 'iyr:2012', 'eyr:2030', 'byr:1980', 'hcl:#623a2f'];
+                    const valid2 = ['eyr:2029', 'ecl:blu', 'cid:129', 'byr:1989', 'iyr:2014', 'pid:896056539', 'hcl:#a97842', 'hgt:165cm'];
 
-                    expect(allElementsValid(valid1)).toEqual(true);
-                    expect(allElementsValid(valid2)).toEqual(true);
+                    expect(allElementsValid(valid1)).toEqual("pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980 hcl:#623a2f");
+                    expect(allElementsValid(valid2)).toEqual("eyr:2029 ecl:blu cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:165cm");
                 });
 
-                it('returns false if a password is invalid against all checks', () => {
-                    const invalid1 = [ 'eyr:1972', 'cid:100', 'hcl:#18171d', 'ecl:amb', 'hgt:170', 'pid:186cm', 'iyr:2018', 'byr:1926'];
-                    const invalid2 = [ 'iyr:2019', 'hcl:#602927', 'eyr:1967', 'hgt:170cm', 'ecl:grn', 'pid:012533040', 'byr:1946'];
+                it('returns empty string if a password is invalid against all checks', () => {
+                    const invalid1 = ['eyr:1972', 'cid:100', 'hcl:#18171d', 'ecl:amb', 'hgt:170', 'pid:186cm', 'iyr:2018', 'byr:1926'];
+                    const invalid2 = ['iyr:2019', 'hcl:#602927', 'eyr:1967', 'hgt:170cm', 'ecl:grn', 'pid:012533040', 'byr:1946'];
 
-
-                    expect(allElementsValid(invalid1)).toEqual(false);
-                    expect(allElementsValid(invalid2)).toEqual(false);
+                    expect(allElementsValid(invalid1)).toEqual('');
+                    expect(allElementsValid(invalid2)).toEqual('');
                 });
             });
 
+        });
+
+        describe('getAllValidPasswordsPart2', () => {
+            it('checks the sample input', () => {
+                const invalid = `eyr:1972 cid:100
+hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
+
+iyr:2019
+hcl:#602927 eyr:1967 hgt:170cm
+ecl:grn pid:012533040 byr:1946
+
+hcl:dab227 iyr:2012
+ecl:brn hgt:182cm pid:021572410 eyr:2020 byr:1992 cid:277
+
+hgt:59cm ecl:zzz
+eyr:2038 hcl:74454a iyr:2023
+pid:3556412378 byr:2007`;
+
+                const valid = `pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
+hcl:#623a2f
+
+eyr:2029 ecl:blu cid:129 byr:1989
+iyr:2014 pid:896056539 hcl:#a97842 hgt:165cm
+
+hcl:#888785
+hgt:164cm byr:2001 iyr:2015 cid:88
+pid:545766238 ecl:hzl
+eyr:2022
+
+iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719`;
+                const result = getAllValidPasswordsPart2(invalid);
+                console.log('result', result);
+
+
+                expect(result.length).toEqual(0);
+                expect(getAllValidPasswordsPart2(valid).length).toEqual(4);
+            });
+
+            it('gets the answers for day 4: p2', () => {
+                expect(getAllValidPasswordsPart2(testData).length).toEqual(25);
+            });
         });
     });
 
