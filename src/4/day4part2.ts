@@ -65,4 +65,18 @@ const hclIsValid = (hclTuple: string): boolean => {
     return !!splitHcl.match(/^#[a-f0-9]{6}$/);
 };
 
-module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid};
+const eclIsValid = (eclTuple: string): boolean => {
+    // ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
+    const splitEcl = (eclTuple.split(':'))[1];
+    const matchedKey = splitEcl.match(/amb|blu|brn|gry|grn|hzl|oth/g);
+
+    if (!matchedKey || matchedKey.length !== 1) {
+        return false;
+    }
+
+    if (matchedKey.length === 1) {
+        return true;
+    }
+};
+
+module.exports = {splitPasswords, byrIsValid, iyrIsValid, eyrIsValid, hgtIsValid, hclIsValid, eclIsValid};
