@@ -98,68 +98,68 @@ describe('Day 4', () => {
         describe('validation of fields', () => {
             describe('byr', () => {
                 it('returns true for a valid byr tuple', () => {
-                    expect(byrIsValid('byr:2002')).toEqual(true);
+                    expect(byrIsValid('2002')).toEqual(true);
                 });
                 it('returns invalid for an invalid byr tuples', () => {
-                    expect(byrIsValid('byr:2003')).toEqual(false);
+                    expect(byrIsValid('2003')).toEqual(false);
                 });
             });
 
             describe('iyr', () => {
                 it('returns true for a valid iyr tuple', () => {
-                    expect(iyrIsValid('iyr:2010')).toEqual(true);
+                    expect(iyrIsValid('2010')).toEqual(true);
                 });
                 it('returns invalid for an invalid iyr tuples', () => {
-                    expect(iyrIsValid('iyr:2022')).toEqual(false);
+                    expect(iyrIsValid('2022')).toEqual(false);
                 });
             });
 
             describe('eyr', () => {
                 it('returns true for a valid eyr tuple', () => {
-                    expect(eyrIsValid('eyr:2020')).toEqual(true);
+                    expect(eyrIsValid('2020')).toEqual(true);
                 });
                 it('returns invalid for an invalid eyr tuples', () => {
-                    expect(eyrIsValid('eyr:2000')).toEqual(false);
+                    expect(eyrIsValid('2000')).toEqual(false);
                 });
             });
 
             describe('hgt', () => {
                 it('returns true for a valid eyr tuple', () => {
-                    expect(hgtIsValid('hgt:60in')).toEqual(true);
-                    expect(hgtIsValid('hgt:190cm')).toEqual(true);
+                    expect(hgtIsValid('60in')).toEqual(true);
+                    expect(hgtIsValid('190cm')).toEqual(true);
                 });
                 it('returns invalid for an invalid eyr tuples', () => {
-                    expect(hgtIsValid('hgt:190in')).toEqual(false);
-                    expect(hgtIsValid('hgt:190')).toEqual(false);
+                    expect(hgtIsValid('190in')).toEqual(false);
+                    expect(hgtIsValid('190')).toEqual(false);
                 });
             });
 
             describe('hcl', () => {
                 it('returns true for a valid hcl tuple', () => {
-                    expect(hclIsValid('hcl:#123abc')).toEqual(true);
+                    expect(hclIsValid('#123abc')).toEqual(true);
                 });
                 it('returns invalid for an invalid hcl tuples', () => {
-                    expect(hclIsValid('hcl:#123abz')).toEqual(false);
-                    expect(hclIsValid('hcl:123abc')).toEqual(false);
+                    expect(hclIsValid('#123abz')).toEqual(false);
+                    expect(hclIsValid('123abc')).toEqual(false);
                 });
             });
 
             describe('ecl', () => {
                 it('returns true for a valid ecl tuple', () => {
-                    expect(eclIsValid('ecl:brn')).toEqual(true);
+                    expect(eclIsValid('brn')).toEqual(true);
                 });
                 it('returns invalid for an invalid ecl tuples', () => {
-                    expect(eclIsValid('ecl:wat')).toEqual(false);
+                    expect(eclIsValid('wat')).toEqual(false);
                 });
             });
 
             describe('pid', () => {
                 it('returns true for a valid pid tuple', () => {
-                    expect(pidIsValid('pid:000000001')).toEqual(true);
+                    expect(pidIsValid('000000001')).toEqual(true);
                 });
 
                 it('returns invalid for an invalid pid tuples', () => {
-                    expect(pidIsValid('pid:0123456789')).toEqual(false);
+                    expect(pidIsValid('0123456789')).toEqual(false);
                 });
             });
 
@@ -168,16 +168,16 @@ describe('Day 4', () => {
                     const valid1 = ['pid:087499704', 'hgt:74in', 'ecl:grn', 'iyr:2012', 'eyr:2030', 'byr:1980', 'hcl:#623a2f'];
                     const valid2 = ['eyr:2029', 'ecl:blu', 'cid:129', 'byr:1989', 'iyr:2014', 'pid:896056539', 'hcl:#a97842', 'hgt:165cm'];
 
-                    expect(allElementsValid(valid1)).toEqual("pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980 hcl:#623a2f");
-                    expect(allElementsValid(valid2)).toEqual("eyr:2029 ecl:blu cid:129 byr:1989 iyr:2014 pid:896056539 hcl:#a97842 hgt:165cm");
+                    expect(allElementsValid(valid1)).toEqual(true);
+                    expect(allElementsValid(valid2)).toEqual(true);
                 });
 
                 it('returns empty string if a password is invalid against all checks', () => {
                     const invalid1 = ['eyr:1972', 'cid:100', 'hcl:#18171d', 'ecl:amb', 'hgt:170', 'pid:186cm', 'iyr:2018', 'byr:1926'];
                     const invalid2 = ['iyr:2019', 'hcl:#602927', 'eyr:1967', 'hgt:170cm', 'ecl:grn', 'pid:012533040', 'byr:1946'];
 
-                    expect(allElementsValid(invalid1)).toEqual('');
-                    expect(allElementsValid(invalid2)).toEqual('');
+                    expect(allElementsValid(invalid1)).toEqual(false);
+                    expect(allElementsValid(invalid2)).toEqual(false);
                 });
             });
 
@@ -211,16 +211,14 @@ pid:545766238 ecl:hzl
 eyr:2022
 
 iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719`;
-                const result = getAllValidPasswordsPart2(invalid);
-                console.log('result', result);
 
-
-                expect(result.length).toEqual(0);
+                expect( getAllValidPasswordsPart2(invalid).length).toEqual(0);
                 expect(getAllValidPasswordsPart2(valid).length).toEqual(4);
             });
 
             it('gets the answers for day 4: p2', () => {
-                expect(getAllValidPasswordsPart2(testData).length).toEqual(198);
+                const result = getAllValidPasswordsPart2(testData);
+                expect(result.length).toEqual(198);
             });
         });
     });
