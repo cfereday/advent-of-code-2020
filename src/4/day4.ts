@@ -1,30 +1,30 @@
 const mustHavePasswordKeys = [
-    'ecl',
-    'pid',
-    'eyr',
-    'hcl',
     'byr',
     'iyr',
-    'hgt'
+    'eyr',
+    'hgt',
+    'hcl',
+    'ecl',
+    'pid'
 ];
 
 const extractPasswords = (passwords: string): string[] => {
     const split = passwords.split(/\n\n|\r\r/g);
     return split.map(p => {
+        // https://futurestud.io/tutorials/remove-all-whitespace-from-a-string-in-javascript
         const stripped = p.replace(/\s+/g, " ");
         return stripped.trim()
     });
 };
 
-const isValid = (password: optionalPassword | ValidPassword): boolean => {
-    const allKeys = Object.keys(password);
-   const result = allKeys.filter(k => ValidPasswordEnum.includes(k));
-   return result.length === ValidPasswordEnum.length
+const isValid = (password: string): boolean => {
+    const matchedKeys = password.match(/byr|iyr|eyr|hgt|hcl|ecl|pid/g);
+    return matchedKeys.length === mustHavePasswordKeys.length;
+
 };
 
-const getAllValidPasswordsPart1 = (passwords: string): ValidPassword[] => {
+const getAllValidPasswordsPart1 = (passwords: string): string[] => {
     const extracted = extractPasswords(passwords);
-    // @ts-ignore
     return extracted.filter(p => isValid(p))
 };
 
